@@ -54,20 +54,12 @@ const getGames = async (req, res)=>{
     try {
         const { name } = req.query;
 
+        let allVideogames
 
-        if (!name) {
-            const AllVideogames = await getAllVideogames(URL);
-            
-            res.status(200).json(AllVideogames);
-        }else{
-            const AllVideogames = await getGamesByName(name.toLowerCase());
+        if (!name) allVideogames = await getAllVideogames(URL);       
+        else allVideogames = await getGamesByName(name.toLowerCase());
 
-            console.log(AllVideogames.length, " LARGO DEL ARRAY");
-
-            res.status(200).json(AllVideogames);
-        }
-
-
+        res.status(200).json(allVideogames);
         
     } catch (err) {
         res.status(400).json({error: err.message});
