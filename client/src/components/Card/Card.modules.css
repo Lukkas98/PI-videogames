@@ -1,0 +1,13 @@
+
+.divCard{
+    width: 300px;
+    height: max-content;
+    background: #434343;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imgGame{
+    width: 250px;
+}
