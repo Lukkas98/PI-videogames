@@ -1,20 +1,18 @@
-import { CREATE_GAME, FILTER, ORDER, DELETE_GAME, GET_GAMES } from "./type";
+import {  GET_ALLGAMES } from "./type";
 
 const initialState = {
+    allVideogames: [],
+
 }
 
 export default function reducer (state = initialState, { type, payload }){
-    switch (type) {
-        case CREATE_GAME:
-              
-        case DELETE_GAME:        
+    switch (type) {    
+        case GET_ALLGAMES:
+            return{
+                ...state,
+                allVideogames: payload
+            }
             
-        case GET_GAMES:
-            
-        case FILTER:
-            
-        case ORDER:
-           
         default:
             return {...state}
     }
