@@ -11,12 +11,14 @@ const getAllVideogames = async (url, videogames = [])=>{
 
         results.forEach( game => {
             videogames.push({
+                id: game.id,
                 name: game.name,
                 description: game.description,
                 platforms: game.platforms,
                 image: game.background_image,
                 releaseDate: game.released,
-                rating: game.rating
+                rating: game.rating,
+                genres: game.genres
             })
         });
         return getAllVideogames(next, videogames);
@@ -27,11 +29,12 @@ const getAllVideogames = async (url, videogames = [])=>{
 
 const getGamesByName = async (name, videogames = [])=>{
     try {
-        // if (videogames.length >= 15) return videogames; 
         let games = await Videogame.findAll();
-        games.forEach( game => {
+        await games.forEach( game => {
+            if (videogames.length >= 15) return videogames; 
             if(game.dataValues.name.toLowerCase().includes(name)) videogames.push(game.dataValues);
         })
+        //si ya se llena desde la base de datos no hago la llamada a la Api
 
         games =  await getAllVideogames(URL);
         

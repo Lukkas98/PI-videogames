@@ -6,8 +6,6 @@ const createGame = async(req, res)=>{
             name, description, platforms, image, releaseDate, rating, genres
         } = req.body;
 
-        console.log(req.body);
-
         if (!name || !description || !platforms || !image || !releaseDate || !rating || !genres) {
             throw new Error("Faltan Datos")
         }
@@ -24,7 +22,7 @@ const createGame = async(req, res)=>{
           const genresToAdd = await Genres.findAll({ where: { name: genres } });
           await game.addGenres(genresToAdd);
       
-          res.status(200).json({ message: 'Videojuego creado exitosamente' });
+          res.status(200).json( game.dataValues );
         } catch (error) {
           res.status(400).json({ error: error.message });
         }

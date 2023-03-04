@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { API_KEY, Genres } = require("../db");
 
-const getGenres = async (req, res)=>{
+const getGenres = async ()=>{
     try {
         const {results} = (await axios(`https://api.rawg.io/api/genres?key=${API_KEY}`)).data
         // console.log(results.length);
@@ -13,9 +13,9 @@ const getGenres = async (req, res)=>{
            });
         });
         
-        res.status(200).send("Genres add to basedata");        
+        return "Genres add to basedata";       
     } catch (error) {
-        res.status(400).json({err: error});
+        return error.message;
     }
 }
 
