@@ -33,10 +33,11 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false
     },
-    // genres:{
-    //   type: DataTypes.STRING,
-    //   allowNull: false
-    // }
+    genresList:{
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+      defaultValue: [],
+    }
   },
   { timestamps: false });
 };

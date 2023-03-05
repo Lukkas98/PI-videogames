@@ -15,7 +15,8 @@ const createGame = async(req, res)=>{
             platforms,
             image,
             releaseDate,
-            rating
+            rating,
+            genresList: genres
           });
       
           // Agregar las relaciones con los géneros

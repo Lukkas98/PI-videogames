@@ -10,14 +10,14 @@ export default function reducer (state = initialState, { type, payload }){
         case GET_ALLGAMES:
             return{
                 ...state,
-                allVideogames: [...state.gamesCreated, payload]
+                allVideogames: state.gamesCreated.concat(payload)
             }
 
         case CREATE_GAME:
             return{
                 ...state,
-                gamesCreated: [...state.gamesCreated, payload],
-                allVideogames: [...state.allVideogames, payload]
+                gamesCreated: state.gamesCreated.concat(payload),
+                allVideogames: state.allVideogames.concat(payload)
             }
             
         default:
