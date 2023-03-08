@@ -16,8 +16,7 @@ export default function HomePage ({videogames}){
     for (let i = 1; i <= totalPages; i++) {
         pagination.push(
             <button key={i} onClick={() => setPage(i)} >{i}</button>
-        )
-        
+        ) 
     }
 
     // const [videoGames, setVideoGames] = useState([])

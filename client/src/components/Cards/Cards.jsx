@@ -7,9 +7,9 @@ export default function Cards( {videogames} ){
         <div className="divFlex">
             {
                 videogames.length ? (
-                    videogames.map( game => {
+                    videogames.map( (game, i) => {
                         return( 
-                            <Card key={game.id} game={game}/> 
+                            <Card key={i} game={game}/> 
                         )
                     })
                 ) : (
