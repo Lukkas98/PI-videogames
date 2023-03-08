@@ -6,7 +6,7 @@ import Detail from './components/Detail/Detail';
 // import axios from "axios";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllGames } from './redux/actions.js';
+import { getAllGames, getAllGenres } from './redux/actions.js';
 
 
 
@@ -16,15 +16,15 @@ function App() {
   const dispatch = useDispatch();
   // const [videogames, setVideogames] = useState([])
   
-  const videogames = useSelector(state => state.allVideogames)
+  const dbvideogames = useSelector(state => state.gamesCreated);
+  const apivideogames = useSelector(state => state.allVideogames);
+
+  const videogames = dbvideogames.concat(apivideogames);
   
   useEffect( ()=>{
     dispatch(getAllGames());
+    dispatch(getAllGenres());
   }, [dispatch]);
-  
-  // useEffect(()=>{
-  //   console.log(videogames);
-  // }, [videogames]);
 
   const searchGame = async (id)=>{
     // const {data} = await axios(`http://localhost:3001/videogames/${id}`);
@@ -40,7 +40,6 @@ function App() {
         <Route path="/home" element={<HomePage videogames={videogames}/>}/>
         <Route path='/create' element={<Form />}/>
         <Route path='/detail/:id' element={<Detail />}/>
-        
       </Routes>
     </>
   );
