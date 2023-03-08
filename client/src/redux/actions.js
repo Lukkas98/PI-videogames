@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ALLGAMES, CREATE_GAME } from "./type";
+import { GET_ALLGAMES, CREATE_GAME, GET_GENRES } from "./type";
 //, FILTER, ORDER, , GET_GAMES
 
 export const getAllGames = ()=>{
@@ -13,10 +13,17 @@ export const getAllGames = ()=>{
 }
 
 export const createGame = (game)=>{
-    return async (dispatch) =>{
-        const {data} = await axios.post("http://localhost:3001/videogames", game);
+    return{
+        type: CREATE_GAME,
+        payload: game
+    }
+}
+
+export const getAllGenres = ()=>{
+    return async (dispatch)=>{
+        const {data} = await axios("http://localhost:3001/videogames/genres")
         dispatch({
-            type: CREATE_GAME,
+            type: GET_GENRES,
             payload: data
         })
     }

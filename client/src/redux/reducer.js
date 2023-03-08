@@ -1,8 +1,9 @@
-import {  GET_ALLGAMES, CREATE_GAME } from "./type";
+import {  GET_ALLGAMES, CREATE_GAME, GET_GENRES } from "./type";
 
 const initialState = {
     allVideogames: [],
-    gamesCreated: []
+    gamesCreated: [],
+    allGenres: []
 }
 
 export default function reducer (state = initialState, { type, payload }){
@@ -16,8 +17,13 @@ export default function reducer (state = initialState, { type, payload }){
         case CREATE_GAME:
             return{
                 ...state,
-                gamesCreated: state.gamesCreated.concat(payload),
-                allVideogames: state.allVideogames.concat(payload)
+                gamesCreated: state.gamesCreated.concat(payload)
+            }
+        
+        case GET_GENRES:
+            return{
+                ...state,
+                allGenres: payload
             }
             
         default:
