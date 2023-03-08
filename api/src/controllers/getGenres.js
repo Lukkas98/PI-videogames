@@ -1,22 +1,37 @@
 const axios = require("axios");
 const { API_KEY, Genres } = require("../db");
 
-const getGenres = async ()=>{
+const addGenresToBasedata = async()=>{
+    const {results} = (await axios(`https://api.rawg.io/api/genres?key=${API_KEY}`)).data
+    results.forEach( async genre => {
+        await Genres.create({
+            id: genre.id,
+            name: genre.name
+       });
+    });
+}
+
+
+const getGenres = async (req, res)=>{
     try {
         const {results} = (await axios(`https://api.rawg.io/api/genres?key=${API_KEY}`)).data
-        // console.log(results.length);
 
-        results.forEach( async genre => {
-            await Genres.create({
+        let genres = [];
+        results.forEach( genre => {
+            genres.push({
                 id: genre.id,
-                name: genre.name
+                name: genre.name,
+                image: genre.image_background
            });
         });
         
-        return "Genres add to basedata";       
+        res.status(200).json(genres);
     } catch (error) {
-        return error.message;
+        res.status(400).json({err: error.message});
     }
 }
 
-module.exports = getGenres;
+module.exports = {
+    getGenres,
+    addGenresToBasedata
+};

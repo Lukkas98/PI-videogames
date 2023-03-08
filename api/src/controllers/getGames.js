@@ -57,9 +57,21 @@ const getGames = async (req, res)=>{
     try {
         const { name } = req.query;
 
-        let allVideogames
+        let allVideogames = []
 
-        if (!name) allVideogames = await getAllVideogames(URL);       
+        if (!name) {
+            let dbGame = await Videogame.findAll();
+            let apiGames = await getAllVideogames(URL);
+
+            if (!dbGame.length) {
+                allVideogames = apiGames
+            }else{
+                dbGame.forEach( game => {
+                    allVideogames.push(game.dataValues)
+                })
+                allVideogames = [...allVideogames, ...apiGames]
+            }
+        }      
         else allVideogames = await getGamesByName(name.toLowerCase());
 
         res.status(200).json(allVideogames);

@@ -1,4 +1,5 @@
 const {Videogame, Genres} = require("../db")
+// const imgDefault = "https://w7.pngwing.com/pngs/961/904/png-transparent-emoji-video-game-sms-games-game-sticker-joystick-thumbnail.png"
 
 const createGame = async(req, res)=>{
     try {
@@ -6,9 +7,8 @@ const createGame = async(req, res)=>{
             name, description, platforms, image, releaseDate, rating, genres
         } = req.body;
 
-        if (!name || !description || !platforms || !image || !releaseDate || !rating || !genres) {
-            throw new Error("Faltan Datos")
-        }
+        if (!name || !description || !platforms || !releaseDate || !rating || !genres) throw new Error("Faltan Datos")
+
         const game = await Videogame.create({
             name,
             description,
