@@ -1,3 +1,53 @@
 .img{
     width: 300px;
+    margin: 15px;
+    border-radius: 30px;
+}
+
+.divDetail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+    margin: 10px 50px;
+    background: #1f1f92da;
+    color: #ffffff;
+    text-shadow: 1px 2px 3px black;
+}
+
+.containerDivDetail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 500px;
+    border-radius: 15px;
+}
+
+.link{
+    margin: 20px 0;
+    font-size: 28px;
+    color: #00ffff;
+    background-color: #1d1c7f;
+    padding: 9px;
+    box-shadow: 0px 0px 6px 3px #ffffff;
+}
+
+.title{
+    font-size: 30px;
+}
+
+.description{
+    font-size: 18px;
+    margin: 10px 25px;
+    padding: 0 20px;
+    border: 2px solid #000000;
+}
+
+.divGenres{
+    display: flex;
+    background-color: #527cc76e;
+    min-width: 60%;
+    padding: 10px;
+    justify-content: space-evenly;
+    border-radius: 10px;
 }

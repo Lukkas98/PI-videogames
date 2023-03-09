@@ -1,4 +1,4 @@
-// import { useState } from "react"
+import "./HomePage.modules.css"
 import { useState } from "react"
 import Cards from "../Cards/Cards"
 
@@ -19,27 +19,35 @@ export default function HomePage ({videogames}){
         ) 
     }
 
-    // const [videoGames, setVideoGames] = useState([])
+    // useEffect(()=>{
+    //     if (videogames.length < pageSize && page === totalPages) {
+    //         setPage(1)
+    //     }
+    // },[videogames])
+
+    // if(videogames.length < pageSize) setPage(1)
     return(
         <>
-            <h1>Home Page</h1>
             <Cards videogames={videogames.slice(startIndex, endIndex)} />
-            {pagination}
-
-            {
-                videogames.slice(startIndex, endIndex).length < pageSize ? (
-                    <button onClick={()=>{setPage(page - 1)}} >Previous</button>
-                ) : (
-                    page === 1 ? (
-                        <button onClick={()=>{setPage(page + 1)}} >Next</button>
+            <div className="btnsPagination">
+                <div className="pagination">
+                    {pagination}
+                </div>
+                {
+                    videogames.slice(startIndex, endIndex).length < pageSize ? (
+                        totalPages === 1 ? null : <button onClick={()=>{setPage(page - 1)}} >Previous</button>
                     ) : (
-                        <>
-                            <button onClick={()=>{setPage(page - 1)}} >Previous Page</button>
-                            <button onClick={()=>{setPage(page + 1)}} >Next Page</button>
-                        </>
-                    )
-                )       
-            }
+                        page === 1 ? (
+                            <button onClick={()=>{setPage(page + 1)}} >Next</button>
+                        ) : (
+                            <>
+                                <button onClick={()=>{setPage(page - 1)}} >Previous Page</button>
+                                <button onClick={()=>{setPage(page + 1)}} >Next Page</button>
+                            </>
+                        )
+                    )       
+                }
+            </div>
         </>
     )
 }

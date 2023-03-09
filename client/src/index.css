@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  font-family: 'VT323', monospace;
+  /* background-image: url("client/src/assets/images/FondoLanding.jpg"); */
+  background-size: cover;
 }
 
 code {

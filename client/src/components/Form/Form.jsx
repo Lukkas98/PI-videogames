@@ -4,6 +4,7 @@ import "./Form.modules.css"
 import validate from "./validation"
 import {createGame} from "../../redux/actions"
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 export default function Form(){
     const dispatch = useDispatch()
@@ -16,7 +17,6 @@ export default function Form(){
         description:"",
         releaseDate:"",
         rating: "",
-        genres: "",
         platforms: "",
         image: "",
         genres: []
@@ -74,54 +74,57 @@ export default function Form(){
     }
 
     return(
-        <>
-            <h2>Create a VideoGame</h2>
-            <form className="form" onSubmit={onSubmit}>
-                
-                <input onChange={handleInputChange} type="text" name="name" placeholder="Name" />
-                
-                {errors.gamename && <span>{errors.gamename}</span>}
-                
-                <input onChange={handleInputChange} type="text" name="description" placeholder="description" />
-                
-                {errors.description && <span>{errors.description}</span>}
-                
-                <select onChange={setPlatforms}>
-                    <option value="PC">PC</option>
-                    <option value="XBOX 360">XBOX 360</option>
-                    <option value="XBOX ONE">XBOX ONE</option>
-                    <option value="PLAY STATION 1">PLAY STATION 1</option>
-                    <option value="PLAY STATION 2">PLAY STATION 2</option>
-                    <option value="PLAY STATION 3">PLAY STATION 3</option>
-                    <option value="PLAY STATION 4">PLAY STATION 4</option>
-                    <option value="PLAY STATION 5">PLAY STATION 5</option>
-                </select>
-                {gameData.platforms && <span>{gameData.platforms}</span>}
-                
-                <input onChange={handleInputChange} type="text" name="image" placeholder="image src" />
-                
-                {errors.image && <span>{errors.image}</span>}
-                
-                <input onChange={handleInputChange} type="text" name="releaseDate" placeholder="releaseDate" />
-                
-                {errors.releaseDate && <span>{errors.releaseDate}</span> }
-                
-                <input onChange={handleInputChange} type="text" name="rating" placeholder="rating" />
-                
-                {errors.rating && <span>{errors.rating}</span> }
+        <div className="divFormPage">
+            <NavLink className="link" to="/home" >BACK HOME</NavLink>
+            <div className="containerForm">
+                <h2>Create a VideoGame</h2>
+                <form className="form" onSubmit={onSubmit}>
+                    
+                    <input onChange={handleInputChange} type="text" name="name" placeholder="Name" />
+                    
+                    {errors.gamename && <span>{errors.gamename}</span>}
+                    
+                    <input onChange={handleInputChange} type="text" name="description" placeholder="description" />
+                    
+                    {errors.description && <span>{errors.description}</span>}
+                    
+                    <select onChange={setPlatforms}>
+                        <option value="PC">PC</option>
+                        <option value="XBOX 360">XBOX 360</option>
+                        <option value="XBOX ONE">XBOX ONE</option>
+                        <option value="PLAY STATION 1">PLAY STATION 1</option>
+                        <option value="PLAY STATION 2">PLAY STATION 2</option>
+                        <option value="PLAY STATION 3">PLAY STATION 3</option>
+                        <option value="PLAY STATION 4">PLAY STATION 4</option>
+                        <option value="PLAY STATION 5">PLAY STATION 5</option>
+                    </select>
+                    {gameData.platforms && <span className="dataSpan" >{gameData.platforms}</span>}
+                    
+                    <input onChange={handleInputChange} type="text" name="image" placeholder="image src" />
+                    
+                    {errors.image && <span>{errors.image}</span>}
+                    
+                    <input onChange={handleInputChange} type="text" name="releaseDate" placeholder="releaseDate" />
+                    
+                    {errors.releaseDate && <span>{errors.releaseDate}</span> }
+                    
+                    <input onChange={handleInputChange} type="text" name="rating" placeholder="rating" />
+                    
+                    {errors.rating && <span>{errors.rating}</span> }
 
-                
-                <select onChange={setGenres} defaultValue="Genres" >
-                    {
-                    allGenres.length && allGenres.map((genre, i) => {
-                        return <option key={i}>{genre.name}</option>;
-                    })
-                    }
-                </select>
-                
-                {gameData.genres && <span>{gameData.genres}</span>}
-                <button type="submit">Create</button>
-            </form>
-        </>
+                    
+                    <select onChange={setGenres} defaultValue="Genres" >
+                        {
+                        allGenres.length && allGenres.map((genre, i) => {
+                            return <option key={i}>{genre.name}</option>;
+                        })
+                        }
+                    </select>
+                    
+                    {gameData.genres && <span className="dataSpan">{gameData.genres}</span>}
+                    <button type="submit">Create</button>
+                </form>
+            </div>
+        </div>
     )
 }

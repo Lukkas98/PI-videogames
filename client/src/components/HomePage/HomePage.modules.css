@@ -1,0 +1,18 @@
+.btnsPagination{
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    font-size: 20px;
+}
+.pagination{
+    display: flex;
+    gap: 5px;
+}
+
+.btnsPagination button{
+    border: 1px solid #4d4c4d;
+    background-color: #0a2463;
+    color: #21d9d9;
+    padding: 4px 10px;
+}

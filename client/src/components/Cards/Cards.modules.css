@@ -1,6 +1,11 @@
 .divFlex{
+    padding: 20px 0;
+    border: 1px dashed white;
+    background: #646464ba;
+    margin: 30px 40px;
+    gap: 20px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
+    justify-content: space-evenly;
 }

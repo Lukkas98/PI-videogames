@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
+import "./SearchBar.modules.css"
 
 export default function SearchBar({ searchGame }){
 
@@ -10,14 +11,16 @@ export default function SearchBar({ searchGame }){
     }
 
     return(
-        <>
-            <NavLink className="links" to="/" >Landing Page</NavLink>
-            <NavLink className="links" to="/home" >Home Page</NavLink>
-            <NavLink className="links" to="/create" >create game</NavLink>
+        <div className="containerNav">
+            
             <div>
-                <input type="text" onChange={onChange} placeholder="Hola" />
-                <button onClick={()=>searchGame(videogame)}>Search</button>
+                <NavLink className="links" to="/home" >Home Page</NavLink>
+                <NavLink className="links" to="/create" >create game</NavLink>
+            </div>
+            <div className="searchBar">
+                <input className="inputSearch" type="text" onChange={onChange} placeholder="Hola" />
+                <button className="btnSearch" onClick={()=>searchGame(videogame)}>Search</button>
             </div>  
-        </>
+        </div>
     )
 }
