@@ -3,10 +3,9 @@ import HomePage from './components/HomePage/HomePage.jsx';
 import Nav from './components/Nav/Nav';
 import Form from './components/Form/Form';
 import Detail from './components/Detail/Detail';
-import axios from "axios";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllGames, getAllGenres } from './redux/actions.js';
+import { filterGames, getAllGames, getAllGenres, orderGames, searchByName } from './redux/actions.js';
 import Landing from './components/Landing/Landing.jsx';
 
 import imageLanding from "./assets/images/FondoLanding.jpg" 
@@ -17,30 +16,52 @@ function App() {
 
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  
-  const dbvideogames = useSelector(state => state.gamesCreated);
-  const apivideogames = useSelector(state => state.allVideogames);
+
+  const allGames = useSelector(state => state.allVideogames);
+  // const dbvideogames = useSelector(state => state.gamesCreated);
+  // const apiVideogames = useSelector(state => state.gamesApi);
+  const gamesFilterName = useSelector(state => state.gamesSearch);
+  const gamesFiltered = useSelector(state => state.gamesFiltered);
   
   const [videogames, setVideogames] = useState([])
   // const videogames = [...dbvideogames, ...apivideogames];
-  
+  console.log(videogames);
+
   useEffect( ()=>{
     dispatch(getAllGames());
     dispatch(getAllGenres());
   }, [dispatch]);
 
   useEffect( ()=>{
-    setVideogames([...dbvideogames, ...apivideogames])
-  }, [dbvideogames, apivideogames]);
+    setVideogames(allGames)
+  }, [allGames]);
+  
+  useEffect( ()=>{
+    setVideogames(gamesFilterName)
+  }, [gamesFilterName]);
+
+  useEffect(()=>{
+    setVideogames(gamesFiltered)
+  }, [gamesFiltered])
 
   const searchGame = async (name)=>{
     try {
-      const {data} = await axios(`http://localhost:3001/videogames?name=${name}`);
-      setVideogames([...data]);
+      dispatch(searchByName(name))
+      setVideogames([...gamesFilterName]);
     } catch(err) {
       alert(err.message);
     }
   }
+
+  const filter = (value)=>{
+      dispatch(filterGames(value))
+      setVideogames([...gamesFiltered])
+  }
+  const order = (value)=>{
+    dispatch(orderGames(value))
+    // setVideogames()
+  }
+  
 
   return (
     <> 
@@ -50,7 +71,7 @@ function App() {
       
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route path="/home" element={<HomePage videogames={videogames}/>}/>
+        <Route path="/home" element={<HomePage videogames={videogames} filter={filter} order={order}/>}/>
         <Route path='/create' element={<Form />}/>
         <Route path='/detail/:id' element={<Detail />}/>
       </Routes>

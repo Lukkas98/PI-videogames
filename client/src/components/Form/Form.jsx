@@ -33,11 +33,11 @@ export default function Form(){
     });
 
     const handleInputChange = (e)=>{
+        setErrors((validate(gameData)));
         setGameData({
            ...gameData,
            [e.target.name] : e.target.value
         })
-        setErrors((validate(gameData)));
     }
 
     //estado
@@ -45,7 +45,7 @@ export default function Form(){
         if (!gameData.platforms.includes(e.target.value)) {
             setGameData({
                 ...gameData,
-                platforms: gameData.platforms.concat(` ${e.target.value}`)
+                platforms: gameData.platforms.concat(`${e.target.value} `)
             })
         }
     }
@@ -89,16 +89,17 @@ export default function Form(){
                     {errors.description && <span>{errors.description}</span>}
                     
                     <select onChange={setPlatforms}>
+                        <option hidden value="">Platforms</option>
                         <option value="PC">PC</option>
                         <option value="XBOX 360">XBOX 360</option>
                         <option value="XBOX ONE">XBOX ONE</option>
-                        <option value="PLAY STATION 1">PLAY STATION 1</option>
+                        <option value="PLAY STATION">PLAY STATION 1</option>
                         <option value="PLAY STATION 2">PLAY STATION 2</option>
                         <option value="PLAY STATION 3">PLAY STATION 3</option>
                         <option value="PLAY STATION 4">PLAY STATION 4</option>
                         <option value="PLAY STATION 5">PLAY STATION 5</option>
                     </select>
-                    {gameData.platforms && <span className="dataSpan" >{gameData.platforms}</span>}
+                    {gameData.platforms && <span className="dataSpan" >{gameData.platforms} </span>}
                     
                     <input onChange={handleInputChange} type="text" name="image" placeholder="image src" />
                     
@@ -114,6 +115,7 @@ export default function Form(){
 
                     
                     <select onChange={setGenres} defaultValue="Genres" >
+                        <option hidden value="">Genres</option>
                         {
                         allGenres.length && allGenres.map((genre, i) => {
                             return <option key={i}>{genre.name}</option>;
@@ -121,7 +123,7 @@ export default function Form(){
                         }
                     </select>
                     
-                    {gameData.genres && <span className="dataSpan">{gameData.genres}</span>}
+                    {gameData.genres && <span className="dataSpan">{gameData.genres + " "}</span>}
                     <button type="submit">Create</button>
                 </form>
             </div>

@@ -1,8 +1,9 @@
 import "./HomePage.modules.css"
 import { useState } from "react"
 import Cards from "../Cards/Cards"
+import { useSelector } from "react-redux";
 
-export default function HomePage ({videogames}){
+export default function HomePage ({videogames, filter, order}){
 
     const [page, setPage] = useState(1);
     const pageSize = 15;
@@ -19,15 +20,42 @@ export default function HomePage ({videogames}){
         ) 
     }
 
-    // useEffect(()=>{
-    //     if (videogames.length < pageSize && page === totalPages) {
-    //         setPage(1)
-    //     }
-    // },[videogames])
+    const allGenres = useSelector(store => store.allGenres)
 
-    // if(videogames.length < pageSize) setPage(1)
+    const handleOnChangeFilter = (e) => {
+        filter(e.target.value)
+    }
+    const handleOnChangeOrder = (e) =>{
+        order(e.target.value)
+    }
+
     return(
         <>
+            <div className="divFilters">
+                <select onChange={handleOnChangeFilter}>
+                    <option hidden value="">Filter by genre</option>
+                    {
+                        allGenres.map(genre => <option key={genre.id} value={genre.name}>{genre.name}</option>)
+                    }
+                </select>
+                <select onChange={handleOnChangeFilter}>
+                    <option hidden value="">Filter by Create or All</option>
+                    <option value="all">All</option>
+                    <option value="bd">Created</option>
+                    <option value="api">No Created</option>
+                </select>
+                <select onChange={handleOnChangeOrder}>
+                    <option hidden value="">Order</option>
+                    <optgroup label="Order by Name">
+                        <option value="A-Z">A-Z</option>
+                        <option value="Z-A">Z-A</option>
+                    </optgroup>
+                    <optgroup label="Order by Rating">
+                        <option value="ascending">Ascending</option>
+                        <option value="descending">Descending</option>
+                    </optgroup>
+                </select>
+            </div>
             <Cards videogames={videogames.slice(startIndex, endIndex)} />
             <div className="btnsPagination">
                 <div className="pagination">

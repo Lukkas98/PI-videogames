@@ -1,6 +1,5 @@
 import axios from "axios";
-import { GET_ALLGAMES, CREATE_GAME, GET_GENRES } from "./type";
-//, FILTER, ORDER, , GET_GAMES
+import { GET_ALLGAMES, CREATE_GAME, GET_GENRES, ORDER, FILTER, SEARCH } from "./type";
 
 export const getAllGames = ()=>{
     return async (dispatch)=>{
@@ -26,5 +25,29 @@ export const getAllGenres = ()=>{
             type: GET_GENRES,
             payload: data
         })
+    }
+}
+
+export const searchByName = (name)=>{
+    return async (dispatch)=>{
+        const {data} = await axios(`http://localhost:3001/videogames?name=${name}`)
+        dispatch({
+            type: SEARCH,
+            payload: data
+        })
+    }
+}
+
+export const filterGames = (filterType)=>{
+    return{
+        type: FILTER,
+        payload: filterType
+    }
+}
+
+export const orderGames = (orderType)=>{
+    return{
+        type: ORDER,
+        payload: orderType
     }
 }
