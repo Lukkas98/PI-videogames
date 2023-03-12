@@ -12,7 +12,31 @@
 
 .btnsPagination button{
     border: 1px solid #4d4c4d;
-    background-color: #0a2463;
+    background: #0a2463;
     color: #21d9d9;
     padding: 4px 10px;
+}
+
+.btnsPagination button:hover{
+    background: #163b91;
+}
+
+.divFilters{
+    display: flex;
+    height: 60px;
+    align-items: center;
+    gap: 20px;
+    width: fit-content;
+    margin: 14px auto;
+    background: #094041;
+    padding: 0 17px;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.select{
+    font-size: 18px;
+    padding: 3px 5px;
+    font-weight: bold;
+    text-transform: uppercase;
 }

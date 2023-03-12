@@ -11,8 +11,7 @@ export default function Form(){
 
     const allGenres = useSelector(state => state.allGenres)
     //otener todos los generos
-
-    const [gameData, setGameData] = useState({
+    const objForState = {
         name:"",
         description:"",
         releaseDate:"",
@@ -20,17 +19,10 @@ export default function Form(){
         platforms: "",
         image: "",
         genres: []
-    });
+    }
+    const [gameData, setGameData] = useState({...objForState});
 
-    const [ errors, setErrors ] = useState({
-        name:"",
-        description:"",
-        releaseDate:"",
-        rating: "",
-        genres: "",
-        image: "",
-        // genres: []
-    });
+    const [ errors, setErrors ] = useState({...objForState});
 
     const handleInputChange = (e)=>{
         setErrors((validate(gameData)));
@@ -65,12 +57,22 @@ export default function Form(){
         }
     }
     
+    const [info, setInfo] = useState("")
 
     const onSubmit = async (e)=>{
-        e.preventDefault();
-        const {data} = await axios.post("http://localhost:3001/videogames", gameData);
-        
-        dispatch(createGame(data));
+        try {
+            e.preventDefault();
+            const {data} = await axios.post("http://localhost:3001/videogames", gameData);
+            
+            dispatch(createGame(data));
+            setGameData({...objForState})
+            setErrors({...objForState})
+            setInfo("Videojuego creado satisfactoriamente")
+        } catch {
+            setErrors({...objForState})
+            setGameData({...objForState})
+            setInfo("No se pudo crear el videojuego")
+        }
     }
 
     return(
@@ -124,7 +126,9 @@ export default function Form(){
                     </select>
                     
                     {gameData.genres && <span className="dataSpan">{gameData.genres + " "}</span>}
+                    
                     <button type="submit">Create</button>
+                    <p>{info}</p>
                 </form>
             </div>
         </div>

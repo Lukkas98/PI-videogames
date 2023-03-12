@@ -41,18 +41,14 @@ export default function reducer (state = initialState, { type, payload }){
                 }
             }
             if(payload === "bd"){
-                let filterBdGames = state.allVideogames.filter(game =>{
-                    if(game.uuid) return game
-                })
+                let filterBdGames = state.allVideogames.filter(game => game.uuid);
                 return{
                     ...state,
                     gamesFiltered: filterBdGames
                 }
             }
             if(payload === "api"){
-                let filterApiGames = state.allVideogames.filter(game =>{
-                    if(game.id) return game
-                })
+                let filterApiGames = state.allVideogames.filter(game => game.id );
                 return{
                     ...state,
                     gamesFiltered: filterApiGames
@@ -61,12 +57,9 @@ export default function reducer (state = initialState, { type, payload }){
             
             let filterGamesApi = state.allVideogames.filter(game => {
                 if(game.id){ //game api
-                    for (let i = 0; i < game.genres.length; i++) {
-                        if (game.genres[i].name === payload) return game;
-                    }  
+                    return game.genres.some(genre => genre.name === payload);
                 }else{ //game bd
-                    console.log(game.genresList);
-                    if (game.genresList.includes(payload)) return game;
+                    return game.genresList.includes(payload);
                 }           
             })
             return{
@@ -88,11 +81,11 @@ export default function reducer (state = initialState, { type, payload }){
                 })
             }else if(payload === "ascending"){
                 gamesOrdered = GamesToOrder.sort((a,b)=>{
-                    return b.rating - a.rating
+                    return a.rating - b.rating
                 })
             }else if(payload === "descending"){
                 gamesOrdered = GamesToOrder.sort((a,b)=>{
-                    return a.rating - b.rating
+                    return b.rating - a.rating
                 })
             }
             return{

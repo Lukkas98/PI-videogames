@@ -17,6 +17,32 @@ export default function Detail(){
         gameData();
     },[id])
 
+    //Pruebas------------------------------------------------------------
+    const [typingText, setTypingText] = useState("");
+
+    useEffect(() => {
+        let i = 1;
+        const speed = 15;
+      
+        function typeWriter() {
+          if (i < game.description.length) {
+            setTypingText(prevText => prevText + game.description.charAt(i));
+            i++;
+            setTimeout(typeWriter, speed);
+          }
+        }
+      
+        game.description ? typeWriter() : setTypingText("");
+      
+        return () => {
+            clearTimeout();
+            setTypingText("");
+        };
+    }, [game]);
+    
+    const descriptionHTML = { __html: typingText };
+    //---------------------------------------------------------------------
+
     return(
         <div className="containerDivDetail" >
             <NavLink className="link" to="/home" >BACK HOME</NavLink>
@@ -27,7 +53,7 @@ export default function Detail(){
                             <p className="title">{game.name}</p>
                             <img className="img" src={game.image || imgDefault} alt="img"/>
 
-                            <div className="divGenres">
+                            <div className="divData">
                                 {
                                     game.genresList ? (
                                         game.genresList.map((genre, i) => <span className="genre" key={i}>{genre}</span>)
@@ -36,14 +62,17 @@ export default function Detail(){
                                     )
                                 }
                             </div>
-                            {
-                            game.id && game.platforms.map((platform, i) => <span className="platform" key={i}>{platform.name}</span>)
-                            }                           
-                            {
-                            game.uuid && <p className="platform">{game.platforms}</p>
-                            }    
+                            <div className="divData">
+                                {
+                                    game.id ? (
+                                        game.platforms.map((objPlatform, i) => 
+                                            <span className="platform" key={i}>{objPlatform.platform.name}</span>
+                                        )
+                                    ) : <p className="platform">{game.platforms}</p>   
+                                }                           
+                            </div>   
                             
-                            <p className="description"><span dangerouslySetInnerHTML={{__html: game.description}}></span></p>
+                            <p className="description"><span id="text" dangerouslySetInnerHTML={descriptionHTML}></span></p>
                             <p>Release Date: {game.releaseDate}</p>
                             <p>Game Rating: {game.rating}</p>
                         </>

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterGames, getAllGames, getAllGenres, orderGames, searchByName } from './redux/actions.js';
 import Landing from './components/Landing/Landing.jsx';
 
-import imageLanding from "./assets/images/FondoLanding.jpg" 
+import imageLanding from "./assets/images/FondoLanding.jpg"
 
 function App() {
   let body = document.querySelector("body");
@@ -18,14 +18,11 @@ function App() {
   const { pathname } = useLocation();
 
   const allGames = useSelector(state => state.allVideogames);
-  // const dbvideogames = useSelector(state => state.gamesCreated);
-  // const apiVideogames = useSelector(state => state.gamesApi);
   const gamesFilterName = useSelector(state => state.gamesSearch);
   const gamesFiltered = useSelector(state => state.gamesFiltered);
   
-  const [videogames, setVideogames] = useState([])
-  // const videogames = [...dbvideogames, ...apivideogames];
-  console.log(videogames);
+  const [videogames, setVideogames] = useState([]);
+  const [error, setError] = useState(false);
 
   useEffect( ()=>{
     dispatch(getAllGames());
@@ -34,23 +31,29 @@ function App() {
 
   useEffect( ()=>{
     setVideogames(allGames)
+    setError(false)
   }, [allGames]);
   
+
   useEffect( ()=>{
     setVideogames(gamesFilterName)
+    setError(false)
+
+    if([...gamesFilterName].length > 0 && [...gamesFilterName][0].error ){
+      setError(true);
+    } else {
+      setError(false);
+    }
   }, [gamesFilterName]);
 
   useEffect(()=>{
     setVideogames(gamesFiltered)
+    setError(false)
   }, [gamesFiltered])
 
-  const searchGame = async (name)=>{
-    try {
-      dispatch(searchByName(name))
-      setVideogames([...gamesFilterName]);
-    } catch(err) {
-      alert(err.message);
-    }
+  const searchGame = (name)=>{
+    dispatch(searchByName(name))
+    setVideogames([...gamesFilterName]);
   }
 
   const filter = (value)=>{
@@ -62,7 +65,6 @@ function App() {
     // setVideogames()
   }
   
-
   return (
     <> 
       {
@@ -71,7 +73,7 @@ function App() {
       
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route path="/home" element={<HomePage videogames={videogames} filter={filter} order={order}/>}/>
+        <Route path="/home" element={<HomePage videogames={videogames} filter={filter} order={order} error={error}/>}/>
         <Route path='/create' element={<Form />}/>
         <Route path='/detail/:id' element={<Detail />}/>
       </Routes>

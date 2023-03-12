@@ -19,6 +19,7 @@ export default function validate(inputs){
 
     if (!inputs.image) errors.image = "a path is needed for the image";
     if (!regexImage.test(inputs.image)) errors.image = "URL must be an image (.jpg, .png or .gif)"
+    if(inputs.image.length > 200) errors.image = "URL is too long"
 
     return errors;
 }

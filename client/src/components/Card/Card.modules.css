@@ -11,10 +11,20 @@
     padding: 10px 0;
     border-radius: 30px;
     box-shadow: -3px 5px 4px 0 black;
+    border: 1px solid #000000;
+    transition: all 1.4s;
+}
+
+.divCard:hover{
+    background: #4545acda;
+    transform: scale(1.2);
+    z-index: 10;
+    border: 1px solid #0a2463;
+    box-shadow: -3px 5px 4px 0 #0a2463;
 }
 
 .imgGame{
     width: 250px;
     border-radius: 15px;
-    /* outline: 2px solid brown; */
+    outline: 2px solid #a2f0ff;
 }

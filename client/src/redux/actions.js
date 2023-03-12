@@ -30,11 +30,18 @@ export const getAllGenres = ()=>{
 
 export const searchByName = (name)=>{
     return async (dispatch)=>{
-        const {data} = await axios(`http://localhost:3001/videogames?name=${name}`)
-        dispatch({
-            type: SEARCH,
-            payload: data
-        })
+        try {
+            const {data} = await axios(`http://localhost:3001/videogames?name=${name}`)
+            dispatch({
+                type: SEARCH,
+                payload: data
+            })
+        } catch {
+            dispatch({
+                type: SEARCH,
+                payload: [{error: name}]
+            })
+        }
     }
 }
 
