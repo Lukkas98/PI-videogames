@@ -74,6 +74,8 @@ const getGames = async (req, res)=>{
         }      
         else allVideogames = await getGamesByName(name.toLowerCase());
 
+        if(!allVideogames.length) throw new Error("empty array")
+
         res.status(200).json(allVideogames);
         
     } catch (err) {
