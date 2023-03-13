@@ -24,9 +24,6 @@ function App() {
   const [videogames, setVideogames] = useState([]);
   const [error, setError] = useState(false);
 
-  console.log(videogames);
-  console.log(error);
-
   useEffect( ()=>{
     dispatch(getAllGames());
     dispatch(getAllGenres());

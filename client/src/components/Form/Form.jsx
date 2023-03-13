@@ -9,8 +9,9 @@ import { NavLink } from "react-router-dom";
 export default function Form(){
     const dispatch = useDispatch()
 
-    const allGenres = useSelector(state => state.allGenres)
     //otener todos los generos
+    const allGenres = useSelector(state => state.allGenres)
+    
     const objForState = {
         name:"",
         description:"",
@@ -67,11 +68,11 @@ export default function Form(){
             dispatch(createGame(data));
             setGameData({...objForState})
             setErrors({...objForState})
-            setInfo("Videojuego creado satisfactoriamente")
+            setInfo("Videogame Created")
         } catch {
             setErrors({...objForState})
             setGameData({...objForState})
-            setInfo("No se pudo crear el videojuego")
+            setInfo("Failed to create the game")
         }
     }
 
@@ -82,11 +83,11 @@ export default function Form(){
                 <h2>Create a VideoGame</h2>
                 <form className="form" onSubmit={onSubmit}>
                     
-                    <input onChange={handleInputChange} type="text" name="name" placeholder="Name" />
+                    <input onChange={handleInputChange} type="text" name="name" placeholder="Name" autoComplete="off" />
                     
                     {errors.gamename && <span>{errors.gamename}</span>}
                     
-                    <input onChange={handleInputChange} type="text" name="description" placeholder="description" />
+                    <input onChange={handleInputChange} type="text" name="description" placeholder="description" autoComplete="off" />
                     
                     {errors.description && <span>{errors.description}</span>}
                     
@@ -103,7 +104,7 @@ export default function Form(){
                     </select>
                     {gameData.platforms && <span className="dataSpan" >{gameData.platforms} </span>}
                     
-                    <input onChange={handleInputChange} type="text" name="image" placeholder="image src" />
+                    <input onChange={handleInputChange} type="text" name="image" placeholder="image src" autoComplete="off"/>
                     
                     {errors.image && <span>{errors.image}</span>}
                     
