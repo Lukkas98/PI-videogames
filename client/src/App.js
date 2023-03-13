@@ -24,6 +24,9 @@ function App() {
   const [videogames, setVideogames] = useState([]);
   const [error, setError] = useState(false);
 
+  console.log(videogames);
+  console.log(error);
+
   useEffect( ()=>{
     dispatch(getAllGames());
     dispatch(getAllGenres());
@@ -31,34 +34,29 @@ function App() {
 
   useEffect( ()=>{
     setVideogames(allGames)
-    setError(false)
   }, [allGames]);
   
-
   useEffect( ()=>{
-    setVideogames(gamesFilterName)
-    setError(false)
-
-    if([...gamesFilterName].length > 0 && [...gamesFilterName][0].error ){
-      setError(true);
-    } else {
-      setError(false);
-    }
+    setVideogames(gamesFilterName)  
   }, [gamesFilterName]);
 
-  useEffect(()=>{
-    setVideogames(gamesFiltered)
-    setError(false)
+  useEffect(()=>{ 
+    setVideogames(gamesFiltered)  
   }, [gamesFiltered])
 
   const searchGame = (name)=>{
     dispatch(searchByName(name))
     setVideogames([...gamesFilterName]);
+
+    if([...gamesFilterName].length === 1 && [...gamesFilterName][0].error ) setError(true);
+    else setError(false);
   }
 
   const filter = (value)=>{
       dispatch(filterGames(value))
       setVideogames([...gamesFiltered])
+      if ([...gamesFiltered].length === 0) setError(true)
+      else setError(false)
   }
   const order = (value)=>{
     dispatch(orderGames(value))
@@ -73,7 +71,7 @@ function App() {
       
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route path="/home" element={<HomePage videogames={videogames} filter={filter} order={order} error={error}/>}/>
+        <Route path="/home" element={<HomePage videogames={videogames} filter={filter} order={order}/>}/>
         <Route path='/create' element={<Form />}/>
         <Route path='/detail/:id' element={<Detail />}/>
       </Routes>

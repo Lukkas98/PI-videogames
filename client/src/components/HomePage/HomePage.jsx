@@ -2,8 +2,10 @@ import "./HomePage.modules.css"
 import { useState } from "react"
 import Cards from "../Cards/Cards"
 import { useSelector } from "react-redux";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 
-export default function HomePage ({videogames, filter, order, error}){
+export default function HomePage ({videogames, filter, order}){
 
     const [page, setPage] = useState(1);
     const pageSize = 15;
@@ -67,7 +69,14 @@ export default function HomePage ({videogames, filter, order, error}){
                     </optgroup>
                 </select>
             </div>
-            <Cards videogames={videogames.slice(startIndex, endIndex)} error={error}/>
+            {/* {
+                !videogames.length ? <Loading /> : <Cards videogames={videogames.slice(startIndex, endIndex)}/>
+            } */}
+            {
+                !videogames.length ? <Loading /> 
+                : videogames[0].error ? <Error nameError={videogames[0].error} />
+                : <Cards videogames={videogames.slice(startIndex, endIndex)}/>
+            }
             <div className="btnsPagination">
                 <div className="pagination">
                     {pagination}

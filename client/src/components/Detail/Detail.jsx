@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
 import imgDefault from "../../assets/images/pngwing.com.png"
+import Loading from "../Loading/Loading";
 
 export default function Detail(){
     const { id } = useParams();
@@ -77,7 +78,7 @@ export default function Detail(){
                             <p>Game Rating: {game.rating}</p>
                         </>
                     ) : (
-                        <p>No hay nada pibe</p>
+                        <Loading />
                     )
                 }
             </div>
